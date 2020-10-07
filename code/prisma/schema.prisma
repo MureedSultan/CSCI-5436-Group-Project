@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model category {
+  categroyId Int       @id @default(autoincrement())
+  name       String?
+  product    product[]
+}
+
+model product {
+  productId   Int      @id @default(autoincrement())
+  name        String
+  price       Float
+  catergoryId Int
+  category    category @relation(fields: [catergoryId], references: [categroyId])
+
+  @@index([catergoryId], name: "product_ibfk_1")
+}
+
+model accounts {
+  id                   Int      @id @default(autoincrement())
+  compound_id          String   @unique
+  user_id              Int
+  provider_type        String
+  provider_id          String
+  provider_account_id  String
+  refresh_token        String?
+  access_token         String?
+  access_token_expires DateTime @default(now())
+  created_at           DateTime @default(now())
+  updated_at           DateTime @default(now())
+
+  @@index([provider_account_id], name: "provider_account_id")
+  @@index([provider_id], name: "provider_id")
+  @@index([user_id], name: "user_id")
+}
+
+model user {
+  id         Int      @id @default(autoincrement())
+  name       String?
+  email      String?  @unique
+  password   String
+  image      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
