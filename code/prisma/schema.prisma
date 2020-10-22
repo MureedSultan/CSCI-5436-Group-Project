@@ -7,41 +7,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model category {
-  categroyId Int       @id @default(autoincrement())
+model categories {
+  categoryId Int        @id @default(autoincrement())
   name       String?
-  product    product[]
+  products   products[]
 }
 
-model product {
-  productId   Int      @id @default(autoincrement())
+model orderItems {
+  itemId    Int      @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  orders    orders   @relation(fields: [orderId], references: [orderId])
+  products  products @relation(fields: [productId], references: [productId])
+
+  @@index([orderId], name: "orderId")
+  @@index([productId], name: "productId")
+}
+
+model orders {
+  orderId    Int          @id @default(autoincrement())
+  userId     Int
+  status     String
+  users      users        @relation(fields: [userId], references: [id])
+  orderItems orderItems[]
+
+  @@index([userId], name: "userId")
+}
+
+model productImages {
+  imageId   Int    @id @default(autoincrement())
+  productId Int
+  url       String
+}
+
+model products {
+  productId   Int          @id @default(autoincrement())
   name        String
   price       Float
-  catergoryId Int
-  category    category @relation(fields: [catergoryId], references: [categroyId])
+  description String
+  stock       Int
+  thumbnail   String
+  categoryId  Int
+  categories  categories   @relation(fields: [categoryId], references: [categoryId])
+  orderItems  orderItems[]
 
-  @@index([catergoryId], name: "product_ibfk_1")
+  @@index([categoryId], name: "product_ibfk_1")
 }
 
-model accounts {
-  id                   Int      @id @default(autoincrement())
-  compound_id          String   @unique
-  user_id              Int
-  provider_type        String
-  provider_id          String
-  provider_account_id  String
-  refresh_token        String?
-  access_token         String?
-  access_token_expires DateTime @default(now())
-  created_at           DateTime @default(now())
-  updated_at           DateTime @default(now())
-
-  @@index([provider_account_id], name: "provider_account_id")
-  @@index([provider_id], name: "provider_id")
-  @@index([user_id], name: "user_id")
-}
-
-model user {
+model users {
   id         Int      @id @default(autoincrement())
   name       String?
   email      String?  @unique
@@ -49,4 +62,5 @@ model user {
   image      String?
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
+  orders     orders[]
 }

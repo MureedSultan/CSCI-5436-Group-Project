@@ -1,22 +1,22 @@
-import NextAuth from 'next-auth';
-import Providers from 'next-auth/providers';
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
 
-import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 const options = {
   providers: [
     Providers.Credentials({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
         username: {
-          label: 'Email',
-          type: 'text',
-          placeholder: 'sultan@test.com',
+          label: "Email",
+          type: "text",
+          placeholder: "jhon@abc.com",
         },
-        password: { label: 'Password', type: 'password' },
+        password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
         console.log(credentials);
@@ -24,7 +24,7 @@ const options = {
           return Promise.resolve(null);
         }
 
-        const user = await prisma.user.findOne({
+        const user = await prisma.users.findOne({
           where: {
             email: credentials.username,
           },
