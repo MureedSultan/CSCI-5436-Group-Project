@@ -34,7 +34,7 @@ export const getServerSideProps = async (context) => {
 };
 
 const Cart = ({ orderItems }) => {
-  console.log(orderItems);
+  // console.log(orderItems);
   return (
     <Layout>
       <Container>

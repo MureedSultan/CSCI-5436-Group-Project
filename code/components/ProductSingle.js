@@ -75,7 +75,12 @@ const ProductSingle = ({ product }) => {
               component="p"
               className={classes.description}
             >
-              {description.replace("*", "").replaceAll(" *", " ")}
+              {description
+                .replace("*", "")
+                .split(" * ")
+                .map((line) => {
+                  return line === "" ? null : line + ". ";
+                })}
             </Typography>
 
             <Rating
