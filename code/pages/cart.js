@@ -6,7 +6,7 @@ import fetch from "isomorphic-unfetch";
 import { getSession } from "next-auth/client";
 import React from "react";
 import OrderItem from "../components/Cart/OrderItem";
-import Layout from "../components/Layout";
+import Layout from "../components/Layout.js";
 import constants from "../helpers/constants";
 import Empty from "../components/Cart/Empty";
 

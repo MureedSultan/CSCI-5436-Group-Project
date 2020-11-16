@@ -1,6 +1,6 @@
 // This is an example of how to protect content using server rendering
 import { getSession } from "next-auth/client";
-import Layout from "../components/layout";
+import Layout from "../components/layoutOld";
 import AccessDenied from "../components/access-denied";
 
 export default function Page({ content, session }) {

@@ -1,4 +1,4 @@
-import Layout from '../components/layout'
+import Layout from '../components/layoutOld'
 
 export default function Page () {
   return (
