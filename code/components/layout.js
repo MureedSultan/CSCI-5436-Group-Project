@@ -1,14 +1,12 @@
-import Header from '../components/header'
-import Footer from '../components/footer'
+import AppBar from "./PrimarySearchAppBar";
 
-export default function Layout ({children}) {
+const Layout = ({ children }) => {
   return (
     <>
-      <Header/>
-      <main>
-        {children}
-      </main>
-      <Footer/>
+      <AppBar />
+      <main>{children}</main>
     </>
-  )
-}
+  );
+};
+
+export default Layout;

@@ -5,23 +5,21 @@ import ProductSingle from "../components/ProductSingle";
 import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
-const CategorySingle = ({ items }) => {
+const CategorySingle = ({ category }) => {
+  // console.log(products);
+  const { name, products } = category;
   return (
     <Box my={6}>
       <Box mb={3}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Sample Category
+          {name}
         </Typography>
       </Box>
-      <Grid container spacing={3} alignItems="stretch">
-        {items.map(({ title, image, description }) => {
+      <Grid container spacing={1} alignItems="stretch">
+        {products.map((product) => {
           return (
-            <Grid item xs={12} md={2}>
-              <ProductSingle
-                title={title}
-                image={image}
-                description={description}
-              />
+            <Grid key={product.productId} item xs={12} sm={6} md>
+              <ProductSingle product={product} />
             </Grid>
           );
         })}
@@ -31,7 +29,7 @@ const CategorySingle = ({ items }) => {
 };
 
 CategorySingle.propTypes = {
-  items: PropTypes.array.isRequired,
+  category: PropTypes.object.isRequired,
 };
 
 export default CategorySingle;

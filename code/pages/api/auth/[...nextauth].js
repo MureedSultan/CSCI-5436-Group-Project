@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 
+import constants from "../../../helpers/constants";
+
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
@@ -42,8 +44,8 @@ const options = {
       },
     }),
   ],
-  database: process.env.DATABASE_URL,
-  secret: process.env.SECRET,
+  database: constants.DATABASE_URL,
+  secret: constants.SECRET,
 
   session: {
     jwt: true,

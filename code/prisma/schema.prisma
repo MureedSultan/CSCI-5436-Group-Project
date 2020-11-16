@@ -9,19 +9,20 @@ datasource db {
 
 model categories {
   categoryId Int        @id @default(autoincrement())
-  name       String?
+  name       String
   products   products[]
 }
 
 model orderItems {
-  itemId    Int      @id @default(autoincrement())
   orderId   Int
   productId Int
+  quantity  Int      @default(1)
   orders    orders   @relation(fields: [orderId], references: [orderId])
   products  products @relation(fields: [productId], references: [productId])
 
-  @@index([orderId], name: "orderId")
-  @@index([productId], name: "productId")
+  @@id([orderId, productId])
+  @@unique([orderId, productId], name: "UNIQUE")
+  @@index([productId, orderId], name: "productId_orderId")
 }
 
 model orders {
@@ -38,6 +39,8 @@ model productImages {
   imageId   Int    @id @default(autoincrement())
   productId Int
   url       String
+
+  @@index([productId], name: "productId")
 }
 
 model products {
@@ -48,6 +51,7 @@ model products {
   stock       Int
   thumbnail   String
   categoryId  Int
+  rating      Float
   categories  categories   @relation(fields: [categoryId], references: [categoryId])
   orderItems  orderItems[]
 

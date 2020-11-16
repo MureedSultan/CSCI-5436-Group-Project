@@ -1,2 +1,3 @@
 .vercel
 code/.env.build
+.env
