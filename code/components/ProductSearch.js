@@ -53,9 +53,7 @@ const ProductSearch = () => {
 
       (async () => {
         setLoading(true);
-        const response = await fetch(
-          `${constants.URL}/api/products?name=${query}&limit=5`
-        );
+        const response = await fetch(`/api/products?name=${query}&limit=5`);
         const products = await response.json();
         if (!products) {
           return undefined;

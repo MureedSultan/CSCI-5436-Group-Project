@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  errorFormat: "pretty",
+  log: ["query", "info", "warn"],
+});
 
 const handleGet = async ({ id, res }) => {
   if (!id || isNaN(Number(id))) {

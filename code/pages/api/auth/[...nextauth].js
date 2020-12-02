@@ -6,7 +6,10 @@ import constants from "../../../helpers/constants";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  errorFormat: "pretty",
+  log: ["query", "info", "warn"],
+});
 
 const options = {
   providers: [
@@ -31,6 +34,9 @@ const options = {
             email: credentials.username,
           },
         });
+        if (!user) {
+          return Promise.resolve(null);
+        }
         const validUser = await bcrypt.compare(
           credentials.password,
           user.password

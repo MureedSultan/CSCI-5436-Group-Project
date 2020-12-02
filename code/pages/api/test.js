@@ -1,7 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { getSession } from "next-auth/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  errorFormat: "pretty",
+  log: ["query", "info", "warn"],
+});
 
 export default async function handle(req, res) {
   const {

@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import ProductSingle from "../components/ProductSingle";
 import PropTypes from "prop-types";
 import { Box } from "@material-ui/core";
-import { spacing } from "@material-ui/system";
 const CategorySingle = ({ category }) => {
   // console.log(products);
   const { name, products } = category;

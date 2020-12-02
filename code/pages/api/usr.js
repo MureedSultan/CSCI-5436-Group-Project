@@ -1,12 +1,15 @@
-import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 
-const password = 'ms13797';
+const password = "ms13797";
 const rounds = 10;
 
-const hashed = '$2b$10$E2CEtpBnO/C2JAYauJQmV..3IDyJ1.Y/nzdtnM4t3ZR//TWxR1Zxm';
+const hashed = "$2b$10$E2CEtpBnO/C2JAYauJQmV..3IDyJ1.Y/nzdtnM4t3ZR//TWxR1Zxm";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  errorFormat: "pretty",
+  log: ["query", "info", "warn"],
+});
 
 export default async function handle(req, res) {
   // const users = await prisma.usr.findMany();
